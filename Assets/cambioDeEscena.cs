@@ -21,11 +21,11 @@ public class cambioDeEscena : MonoBehaviour
 
         if (!nombreNivel.Equals(null))
         {
-            if (nombreNivel.Equals("PantallaInicio") && (Input.GetKeyDown(KeyCode.UpArrow) | Input.GetButtonDown("BotonA")))
+            if (nombreNivel.Equals("PantallaInicio") && Input.GetMouseButtonUp(0))
             {
                 SceneManager.LoadScene("NivelUno");
             }
-            else if ((nombreNivel.Equals("GameOver") | nombreNivel.Equals("Creditos")) && (Input.GetKeyDown(KeyCode.UpArrow) | Input.GetButtonDown("BotonA")))
+            else if ((nombreNivel.Equals("GameOver") | nombreNivel.Equals("Creditos")) && Input.GetMouseButtonUp(0))
             {
                 SceneManager.LoadScene("PantallaInicio");
             }

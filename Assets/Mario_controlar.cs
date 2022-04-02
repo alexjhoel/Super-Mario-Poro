@@ -5,6 +5,9 @@ using UnityEngine.UI; //Para poder usar tipo de dato Text con el Canvas
 
 public class Mario_controlar : MonoBehaviour
 {
+    public bool running;
+    public bool aPressed;
+    public int Axis;
     public Camera camaraPrincipal;
     public int puntaje;
     public Text textoPuntaje;
@@ -48,7 +51,7 @@ public class Mario_controlar : MonoBehaviour
         animacion.SetFloat("velocidad", Mathf.Abs(rb2d.velocity.x));
         animacion.SetBool("tocando_suelo", tocandoSuelo);
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) | Input.GetButtonDown("BotonA")) && tocandoSuelo)
+        if (aPressed && tocandoSuelo)
         { //Saltar con análogo hacia arriba: Input.GetAxis("Vertical") > 0.002f
             saltar = true;
             reproducirFX(saltarClip);
@@ -65,14 +68,14 @@ public class Mario_controlar : MonoBehaviour
             rb2d.velocity = velocidadFixeada;
         }
 
-        float horizontal = Input.GetAxis("Horizontal");
+        float horizontal = Axis;
         if (!movimiento) horizontal = 0; //Para cancelar movimiento horizontal cuando enemigo lastima a personaje
 
         rb2d.AddForce(Vector2.right * velocidad * horizontal);
 
         float limiteVelocidad = Mathf.Clamp(rb2d.velocity.x, -maxVel, maxVel);
 
-        if (Input.GetButton("BotonX") | Input.GetKey(KeyCode.Space)) //Aumentar velocidad mientras se presiona botón de correr
+        if (Input.GetButton("BotonX") | Input.GetKey(KeyCode.Space) | running) //Aumentar velocidad mientras se presiona botón de correr
         {
             limiteVelocidad = Mathf.Clamp(rb2d.velocity.x, -maxVel*2.3f, maxVel*2.3f);
         }
